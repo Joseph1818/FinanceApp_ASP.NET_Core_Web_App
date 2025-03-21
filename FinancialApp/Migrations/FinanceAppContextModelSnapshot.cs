@@ -46,7 +46,7 @@ namespace FinancialApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Expesenses");
+                    b.ToTable("Expenses");
                 });
 #pragma warning restore 612, 618
         }

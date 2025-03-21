@@ -8,10 +8,11 @@ namespace FinancialApp.Data
         public FinanceAppContext(DbContextOptions<FinanceAppContext> options) : base(options){}
 
         //Creating an instance for our Expense models
-        DbSet<Expense> Expesenses { set; get; }
+        public DbSet<Expense> Expenses { get; set; }
 
         protected FinanceAppContext()
         {
+
         }
     }
 }

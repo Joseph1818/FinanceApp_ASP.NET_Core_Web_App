@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FinancialApp.Migrations
 {
     [DbContext(typeof(FinanceAppContext))]
-    [Migration("20250317205609_Initial Migration")]
+    [Migration("20250320123617_Initial Migration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -49,7 +49,7 @@ namespace FinancialApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Expesenses");
+                    b.ToTable("Expenses");
                 });
 #pragma warning restore 612, 618
         }
