@@ -3,25 +3,24 @@ using FinancialApp.Data;
 using FinancialApp.Models;
 using AspNetCoreGeneratedDocument;
 using Microsoft.EntityFrameworkCore;
+using FinancialApp.Data.Service;
 
 namespace FinancialApp.Controllers
 {
     public class ExpensesController : Controller
     {
-        // Creating access to the context we created so we can be able to interact with the database;
-        // We will be using "_context" this variable to interact with our database
-       public readonly FinanceAppContext _context;
+        //Create an _expensiveService in the controller which communicate directly with the controller class.
+        public readonly IExpensesService _expensesService;
         // Creating a constructor as a dependancy
-        public ExpensesController(FinanceAppContext context)
+        public ExpensesController(IExpensesService expensesService)
         {
-            _context = context;
+            _expensesService = expensesService;
         }
        //This action Method returns Index
        public async Task <IActionResult> Index()
         {
-            //Taking our data from the database the value we are getting from the database is passed to the variable
-            //exepenses. and we are returning it into the view
-            var expenses = await _context.Expenses.ToListAsync();
+            // In the controller we call the service Method with "_expensises" then call the method.
+            var expenses = await _expensesService.GetAll();
             return View(expenses);
         }
 
@@ -38,12 +37,17 @@ namespace FinancialApp.Controllers
             // Then we redirect into the view.
             if (ModelState.IsValid)
             {
-                _context.Expenses.Add(expense);
-                await _context.SaveChangesAsync();
-
+                await _expensesService.Add(expense);
+              
                 return RedirectToAction("index");
             }
             return View(expense);
+        }
+        // Quering the data
+        public IActionResult GetChart()
+        {
+            var data = _expensesService.GetChartData();
+            return Json(data);
         }
     }
 }
